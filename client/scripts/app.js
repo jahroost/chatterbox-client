@@ -10,44 +10,67 @@ var main = document.querySelector('main');
 //   jqXHR.setRequestHeader('X-Parse-REST-API-Key', '7543f778eede3b2723e3018977563e69738d7c1b');
 // });
 
-$(document).ready(function(){};
 
+// contenet function
+// var initChatLogWidgets = function() {
+//   $(".chatlog results").fetch(function() {
+//     // fix me
+//   })
+// }
 
 app.init = function() {
+  // set handlers
+  // $("#testSubmit").click(function() {
+  //   alert("button clicked");
+  // })
+  $("#submit").on('click', function(event) {
+    // console.log(event.target);
+    console.log($("#message")[0].value)
 
-}
-
-// send is a POST /update http call
-app.send = function() {
-  $.ajax({
-    // This is the url you should use to communicate with the parse API server.
-    url: 'http://parse.atx.hackreactor.com/chatterbox/classes/messages',
-    type: 'POST',
-    // dataType: 'json',
-    data: JSON.stringify(message),
-    contentType: 'application/json',
-    success: function (data) {
-      console.log('chatterbox: Message sent');
-    },
-    error: function (data) {
-      // See: https://developer.mozilla.org/en-US/docs/Web/API/console.error
-      console.error('chatterbox: Failed to send message', data);
+    //message format:
+    var message = {
+      username: window.location.search.split('=')[1],
+      // roomname: fixme
+      text: $("#message")[0].value
     }
-  });
-}
 
-var url = "http://parse.atx.hackreactor.com/chatterbox/classes/messages";
+    this.send(message)
+    // console.log('testing', data.target);
+  });
+
+  // $("#submit").on('click', function() {
+  //   $("#content").load('app.js', function(response, status) {
+  //     success: initChatLogWidgets();
+  //   });
+  // });
+
+  // $("#submit").button()
+  // set variables
+  var url = "http://parse.atx.hackreactor.com/chatterbox/classes/messages";
+  var errorLog = []; // fix me
+  var jqXML = function() { // fix me
+  var host; // fix me
+  var ajaxLog = []; // fix me
+  }
+
+}
 
 app.fetch = function() {
   $.ajax({
     // This is the url you should use to communicate with the parse API server.
-
-  }
-
     url: url,
     type: 'GET',
-    data: JSON.stringify(message),
-    contentType: 'application/json',
+    data: {
+      order: "-createdAt"
+    },
+    dataType: 'json',
+    // contentType: 'application/json',
+    complete: function() {
+
+    },
+    dataFilter: function() {
+
+    },
     success: function (data) {
       console.log('chatterbox: Message sent');
     },
@@ -56,6 +79,39 @@ app.fetch = function() {
       console.error('chatterbox: Failed to send message', data);
     }
   });
+}
+
+// send is a POST /update http call
+app.send = function(message) {
+  console.log(message);
+  // var content =
+  $.ajax({
+    // This is the url you should use to communicate with the parse API server.
+    url: url,
+    type: 'POST',
+    // dataType: 'json',
+    data: JSON.stringify(message),
+    dataType: 'json',
+    // contentType: 'application/json',
+    beforeSend: function() {
+
+    },
+    complete: function() {
+
+    },
+    dataFilter: function() {
+
+    },
+    success: function (data) {
+      console.log('chatterbox: Message sent');
+      app.renderMessage(message)
+    },
+    error: function (data) {
+      // See: https://developer.mozilla.org/en-US/docs/Web/API/console.error
+      console.error('chatterbox: Failed to send message', data);
+    }
+  });
+}
 
   // $.getJSON("ajax/index.html", function(data) {
   //   var items = [];
@@ -68,13 +124,20 @@ app.fetch = function() {
   //   }).appendTo("body");
   // });
 
-}
+
 
 app.clearMessages = function() {
-  $("#chats").remove()
+  $(".chatlog").remove()
 }
 
+app.renderMessage = function() {
+  $(".chatlog").append(message)
+}
 
+$(document).ready(function(){
+  app.init();
+  // $("#submit").ajax.send();
+});
 
 //
 // {
@@ -91,9 +154,6 @@ app.clearMessages = function() {
 // url: 'http://parse.atx.hackreactor.com/get',
 // }
 
-// app.renderMessage = function() {
-//   $("#chats").append(message)
-// }
 
 // app.selectRoom = function() {
 //   $(document).ajaxSend(function() {
@@ -113,4 +173,3 @@ app.clearMessages = function() {
 //   text: 'Never underestimate the power of the Schwartz!',
 //   roomname: 'lobby'
 // };
-}
