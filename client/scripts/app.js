@@ -15,6 +15,13 @@ app.init = function() {
     };
     app.send(message)
   });
+  function getRoomNames(obj) {
+    var result = [];
+    for (var key of obj["results"]) {
+      result.push(key["roomname"]);
+    }
+    return result;
+  }
 
   // set variables
   var errorLog = [];
@@ -39,6 +46,7 @@ app.fetch = function() {
     // },
     success: function (data) {
       console.log('chatterbox: Message sent');
+      // var returnedObj = JSON.parse("results", (key, value);
       $("#results").append("<li></li>");
     },
     error: function (data) {
