@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title>chatterbox</title>
-    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/styles.css">www
 
     <!-- dependencies -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -26,13 +26,26 @@
   <body>
     <div id="main">
       <h1>chatterbox</h1>
-        <form action="http://parse.atx.hackreactor.com/chatterbox/classes/messages" method="post"> 
-          <input type="text">
-          <input type="submit" value="submit">
-            <p id="chats"></p>
-            <p id="test"></p>
-        </form>
-    </div>
+        <h2>Room:</h2>
+        <select class="roomSelector">
+          <!-- <optGroup label="Rooms"> -->
+          <option>Rooms</option>
+          <option>New Room...</option>
+          <!-- get request to pull existing options -->
+          <option>Lobby</option>
+
+        <!-- </optgroup> -->
+
+          <form action="#" method="post">
+            <input type="text">
+            <input type="submit" value="submit">
+              <!-- <p id="chats"></p>
+              <ul id="chatslist"></ul>
+              <p id="test"></p> -->
+
+          </form>
+        <div class="chatlog result"></div>
+        <div class="log"></div>
     </div>
   </body>
 </html>
